@@ -1,0 +1,33 @@
+<div class="messages">
+  <% @messages.each do |message| %>
+    <% if message.from == current_user %>
+      <div class="from-message">
+        <%= image_tag "avatar.png", :class => 'avatar' %>
+        <div class="message">
+          <%= message.content %>
+        </div>
+      </div>
+    <% else %>
+      <div class="to-message">
+        <div class="message">
+          <%= message.content %>
+        </div>
+        <%= image_tag "avatar.png", :class => 'avatar' %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= form_for Message.new do |f| %>
+  <%= f.text_area :content, :placeholder => "Reply here..." %>
+<% end %>
+
+<script>
+  $("textarea").keydown(function(e){
+    if(e.keyCode==13){
+      $("form").submit().find('textarea').val("");
+    }
+  });
+</script>
+
+
